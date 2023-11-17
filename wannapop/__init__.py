@@ -9,7 +9,7 @@ def create_app():
     app = Flask(__name__)
 
     # Secret key
-    app.config["SECRET_KEY"] = "Valor aleatori molt llarg i super secret"
+    app.config["SECRET_KEY"] = "GDtfDCFYjD"
 
     # ruta absoluta d'aquesta carpeta
     basedir = os.path.abspath(os.path.dirname(__file__)) 

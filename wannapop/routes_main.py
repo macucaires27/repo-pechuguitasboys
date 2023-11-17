@@ -6,6 +6,27 @@ from . import db_manager as db
 import uuid
 import os
 
+"""Initialize Flask application."""
+from flask import Flask
+
+
+app = Flask(__name__)
+app.config.from_pyfile("config.py")
+
+
+app = Flask(__name__)
+app.config.from_object('config.Config')
+
+# Using a production configuration
+app.config.from_object('config.ProdConfig')
+
+# Using a development configuration
+app.config.from_object('config.DevConfig')
+
+
+
+
+
 # Blueprint
 main_bp = Blueprint(
     "main_bp", __name__, template_folder="templates", static_folder="static"
@@ -126,3 +147,28 @@ def __manage_photo_file(photo_file):
             return unique_filename
 
     return None
+
+
+
+#csv to flask
+
+from io import TextIOWrapper
+import csv
+
+@app.route('/csv', methods=['GET', 'POST'])
+def upload_csv():
+    if request.method == 'POST':
+        csv_file = request.files['file']
+        csv_file = TextIOWrapper(csv_file, encoding='utf-8')
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for row in csv_reader:
+            user = User.username=row[0]
+            db.session.add(user)
+            db.session.commit()
+        return redirect(url_for('upload_csv'))
+    return """
+            <form method='post' action='/csv' enctype='multipart/form-data'>
+              Upload a csv file: <input type='file' name='file'>
+              <input type='submit' value='Upload'>
+            </form>
+            """
