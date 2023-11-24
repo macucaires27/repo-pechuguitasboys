@@ -6,25 +6,57 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Wannapop</title>
-   <link href="/static/css/wannapop.css" rel="stylesheet">
+   <link href="{{ url_for('static', filename='css/tailwind.css') }}" rel="stylesheet">
+   <link rel="shortcut icon" href="assets/images/favicon/favicon.ico" type="image/x-icon">
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
 </head>
 
-<body>
-   <h2>Wannapop</h2>
-   <hr />
+<body class="font-poppins bg-gray-100 text-gray-800">
+   <header class="py-4 shadow-md bg-white">
+      <div class="container mx-auto flex items-center justify-between">
+         <a href="index.html">
+            <h2 class="text-xl font-bold text-primary">Wannapop</h2>
+         </a>
+
+         <div class="w-full max-w-xl relative flex">
+            <span class="absolute left-4 top-3 text-lg text-gray-500">
+               <i class="fas fa-search"></i>
+            </span>
+            <input type="text" name="search" id="search" class="w-full border border-primary border-r-0 pl-12 py-2 pr-3 rounded-l-md focus:outline-none hidden md:flex" placeholder="Search">
+            <button class="block py-2 pl-4 pr-4 text-center text-white bg-primary border border-primary rounded-r-md hover:bg-transparent hover:text-primary transition">Search</button>
+         </div>
+
+         <div class="flex items-center space-x-4">
+            <a href="#" class="text-center text-gray-700 hover:text-primary transition relative">
+               <div class="text-xl">
+                  <i class="far fa-user"></i>
+               </div>
+               <div class="text-xs leading-3">Account</div>
+            </a>
+         </div>
+      </div>
+   </header>
+   <hr>
    {% with messages = get_flashed_messages(with_categories=true) %}
    {% if messages %}
       <div class="messages">
-      {% for category, message in messages %}
-         <p class="{{ category }}">{{ message }}</p>
-      {% endfor %}
+         {% for category, message in messages %}
+            <p class="{{ category }}">{{ message }}</p>
+         {% endfor %}
       </div>
    {% endif %}
    {% endwith %}
+   </header>
+
    <!-- START CONTENT -->
-   {% block content %} {% endblock %}
+   <div class="container mx-auto mt-8">
+      {% block content %}
+      {% endblock %}
+   </div>
    <!-- END CONTENT -->
-   <hr />
+
+   <!-- Add your scripts or additional styles here -->
 </body>
 
 </html>
