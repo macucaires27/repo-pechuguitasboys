@@ -1,19 +1,71 @@
 body {
-    background-color: lightgoldenrodyellow;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
 }
 
-table {
-    width: 100%;
+header {
+    background-color: #fff;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-td, th {
-    border: 1px solid red;
+header a {
+    text-decoration: none;
+    color: #333;
 }
 
-.messages .error {
-    color: red;
+h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
-.messages .success {
-    color: green;
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
 }
+
+.search-container span {
+    margin-right: 0.5rem;
+    color: #888;
+}
+
+input[type="text"] {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.user-container {
+    display: flex;
+    align-items: center;
+}
+
+.user-container a {
+    margin-left: 1rem;
+    text-decoration: none;
+    color: #333;
+}
+
+.content-container {
+    margin-top: 1rem;
+}
+
+/* Add your own styles for content, messages, etc. */
