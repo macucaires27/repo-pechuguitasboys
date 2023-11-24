@@ -1,13 +1,14 @@
+<link href="../static/css/wannapop.css" rel="stylesheet">
 {% extends '_template.html' %}
 {% from "_formhelpers.html" import render_errors %}
 {% block content %}
 
 <div class="contain py-16">
-    <div class="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
-        <h2 class="text-2xl pb-4 text-center  uppercase font-medium mb-1">Iniciar sesion</h2>
-        <hr class="pt-4">
+    <div>
+        <h2>Iniciar sesion</h2>
+        <hr>
         <!-- form login -->
-        <form action="templates/login" method="POST">
+        <form action="/login" method="POST">
             {{ form.csrf_token }}
             <div class="space-y-2">
                 <!-- email -->

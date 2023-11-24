@@ -1,3 +1,4 @@
+<link href="../static/css/wannapop.css" rel="stylesheet">
 {% extends '_template.html' %}
 {% from "_formhelpers.html" import render_errors %}
 {% block content %}
@@ -5,7 +6,7 @@
 <div class="contain py-16">
     <div class="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
         <h2 class="text-2xl uppercase font-medium mb-1">Crea una cuenta</h2>
-        <form action="templates/register" method="POST">
+        <form action="/register" method="POST">
             <div class="space-y-2">
                 {{ form.csrf_token }}
                 <!-- NOMBRE -->

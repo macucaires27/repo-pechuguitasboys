@@ -4,18 +4,19 @@ from . import login_manager
 from .models import User
 from .forms import LoginForm, RegisterForm
 from . import db_manager as db
+from .helper_role import notify_identity_changed
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 
 
-# Blueprint
+
 auth_bp = Blueprint(
     "auth_bp", __name__, template_folder="templates", static_folder="static"
 )
 
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
-    # Si ja està autenticat, sortim d'aquí
+
     if current_user.is_authenticated:
         return redirect(url_for("main_bp.init"))
     
@@ -30,6 +31,7 @@ def login():
 
         if user and check_password_hash(user.password, plain_text_password):
             login_user(user)
+            notify_identity_changed()
             flash('Logged in successfully.', "success")
             return redirect(url_for("main_bp.init"))
 
@@ -66,7 +68,7 @@ def logout():
 
 @auth_bp.route("/register", methods=["GET", "POST"])
 def register():
-    # Si ya está autenticado, redirigimos
+
     if current_user.is_authenticated:
         return redirect(url_for("main_bp.init"))
 
@@ -75,17 +77,18 @@ def register():
     if form.validate_on_submit():
         name = form.name.data
         email = form.email.data
+        name = form.name.data
         plain_text_password = form.password.data
 
-        # Verifica si el usuario ya existe
+     
         existing_user = db.session.query(User).filter(User.email == email).first()
         if existing_user:
             flash('El correo electrónico ya está registrado. Inicia sesión en lugar de registrarte.', 'warning')
             return redirect(url_for("auth_bp.login"))
 
-        # Crea un nuevo usuario y almacena el nombre, correo y la contraseña hasheada
+     
         hashed_password = generate_password_hash(plain_text_password, method='scrypt:32768:8:1')
-        new_user = User(name=name, email=email, password=hashed_password, role="wanner")
+        new_user = User(name = name, email=email, password=hashed_password, role = "wanner")
         db.session.add(new_user)
         db.session.commit()
 

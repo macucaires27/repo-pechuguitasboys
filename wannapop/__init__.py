@@ -1,8 +1,13 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+from flask_principal import Principal
 import os
 
 db_manager = SQLAlchemy()
+login_manager = LoginManager()
+principal_manager =  Principal()
+
 
 def create_app():
     # Construct the core app object
