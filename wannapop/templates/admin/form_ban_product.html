@@ -1,0 +1,14 @@
+{% extends 'layouts/_base.html' %}
+
+
+{% block title %}
+   Bannear Productos
+{% endblock %}
+
+{% block content %}
+    <form action="/admin/products/<int:product_id>/ban" method="post">
+        <label for="product_id">ID del Producto a Banear:</label>
+        <input type="text" id="product_id" name="product_id" placeholder="ID del Producto">
+        <input type="submit" value="Banear Producto">
+    </form>
+{% endblock %}

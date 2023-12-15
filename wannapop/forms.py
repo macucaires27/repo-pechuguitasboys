@@ -3,6 +3,15 @@ from wtforms import PasswordField, StringField, DecimalField, SubmitField, Selec
 from wtforms.validators import DataRequired, NumberRange, InputRequired, Email
 import decimal
 
+class LoginForm(FlaskForm):
+    email = StringField(
+        validators = [Email(), DataRequired()]
+    )
+    password = PasswordField(
+        validators=[ DataRequired()]
+    )
+    submit = SubmitField()
+
 class RegisterForm(FlaskForm):
     name = StringField(
         validators = [DataRequired()]
@@ -12,6 +21,24 @@ class RegisterForm(FlaskForm):
     )
     password = PasswordField(
         validators=[ DataRequired()]
+    )
+    submit = SubmitField()
+
+class ProfileForm(FlaskForm):
+    name = StringField(
+        validators = [DataRequired()]
+    )
+    email = StringField(
+        validators = [Email(), DataRequired()]
+    )
+    password = PasswordField(
+        # no es obligatori canviar-lo
+    )
+    submit = SubmitField()
+
+class ResendForm(FlaskForm):
+    email = StringField(
+        validators = [Email(), DataRequired()]
     )
     submit = SubmitField()
 
@@ -30,6 +57,27 @@ class ProductForm(FlaskForm):
     )
     category_id = SelectField(
         validators = [InputRequired()]
+    )
+    status_id = SelectField(
+        validators = [InputRequired()]
+    )
+    submit = SubmitField()
+
+class CategoryForm(FlaskForm):
+    name = StringField(
+        validators = [DataRequired()]
+    )
+    slug = StringField(
+        validators = [DataRequired()]
+    )
+    submit = SubmitField()
+
+class StatusForm(FlaskForm):
+    name = StringField(
+        validators = [DataRequired()]
+    )
+    slug = StringField(
+        validators = [DataRequired()]
     )
     submit = SubmitField()
 

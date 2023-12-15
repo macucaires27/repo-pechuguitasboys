@@ -1,0 +1,20 @@
+{% extends 'layouts/_base.html' %}
+
+{% block title %}
+    Desbloquear Usuario
+{% endblock %}
+
+{% block content %}
+    <h1>Desbloquear Usuario</h1>
+    <form action="/admin/users/unblock" method="post">
+        <label for="user_id">Selecciona el usuario a desbloquear:</label>
+        <select id="user_id" name="user_id">
+            {% for user in blocked_users %}
+                <option value="{{ user.id }}">{{ user.user_id }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Desbloquear usuario">
+    </form>
+
+    <a class="btn btn-outline-dark btn-xl" href="/admin">&#x3c;&#x3c; Tornar la pàgina d'administració</a>
+{% endblock %}

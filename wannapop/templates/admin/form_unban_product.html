@@ -1,0 +1,18 @@
+{% extends 'layouts/_base.html' %}
+
+
+{% block title %}
+   Desbannear Productos
+{% endblock %}
+
+{% block content %}
+    <form action="/admin/products/unban" method="post">
+        <label for="product_id_unban">ID del Producto a Desbanear:</label>
+        <select id="product_id" name="product_id">
+            {% for product in products %}
+                <option value="{{ product.id }}">{{ product.title }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Desbanear Producto">
+    </form>
+{% endblock %}
