@@ -1,4 +1,4 @@
-#!/home/macuco/Documents/ProyectoM12-S3/2daw-m12-p1-solution-sprint1/.venv/bin/python3
+#!/home/macuco/Documents/repo-pechuguitasboys/.venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

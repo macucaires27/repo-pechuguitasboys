@@ -35,7 +35,9 @@ def block_user():
     user_id_blocked = request.form.get('user_id')
     user_blocked =  User.query.filter_by(id=user_id_blocked).first()
     
-    if user_blocked:
+    is_blocked = Blocked_User.query.filter_by(user_id=user_id_blocked).first()
+
+    if not is_blocked:
     
         blocked_user = Blocked_User(user_id=user_blocked.id, message=request.form['message'])
 
@@ -43,7 +45,7 @@ def block_user():
         db.session.commit()
         return redirect(url_for('admin_bp.admin_users'))
     
-    return "Error: Usuario no encontrado"
+    return "Error: Usuario no encontrado o Usuario ya esta bloqueado"
 
 #---------DESBLOQUEAR USUARIOS-------------------
 
@@ -71,30 +73,38 @@ def unblock_user():
 
 
 #############------PRODUCTOS----BANEADOS------
-@admin_bp.route('/admin/products/list/ban')
+@admin_bp.route('/admin/products/form_ban')
 @role_required(Role.moderator)
-def product_list():
+def product_form_ban():
     products = db.session.query(Product).all()
-    return render_template('admin/products_list.html', products=products)
+    return render_template('admin/form_ban_product.html', products=products)
 
 
-
-@admin_bp.route('/admin/products/{product_id}/ban',methods = ['POST'])
+@admin_bp.route('/admin/products/ban', methods=['POST'])
 @role_required(Role.moderator)
 def ban_product():
-
-    product_id = request.form.get('product_id')
+    product_id_banned = request.form.get('product_id')
+    reason = request.form.get('reason')
 
     # Verifica si el producto ya está en la lista de productos baneados
-    banned_product = Banned_Product.query.filter_by(product_id=product_id).first()
+    banned_product = Banned_Product.query.filter_by(product_id=product_id_banned).first()
 
-    if not banned_product:
+    if banned_product is None:
         # Si no está baneado, lo agregamos a la lista de productos baneados
-        banned_product = Banned_Product(product_id=product_id)
+        banned_product = Banned_Product(product_id=product_id_banned, reason=reason)
         db.session.add(banned_product)
         db.session.commit()
+        return redirect(url_for('admin_bp.ban_product'))  # Redirige a la lista de productos
+    else:
+        return "El producto ya está baneado"
 
-    return redirect(url_for('product_list'))  # Redirige a alguna vista de la lista de productos
+#############------PRODUCTOS----DESBANEADOS------
+
+@admin_bp.route('/admin/products/form_unban')
+@role_required(Role.moderator)
+def product_form_unban():
+    products = db.session.query(Product).all()
+    return render_template('admin/form_unban_product.html', products=products)
 
 @admin_bp.route('/admin/products/unban', methods=['POST'])
 @role_required(Role.moderator)
@@ -109,5 +119,7 @@ def unban_product():
         db.session.delete(banned_product)
         db.session.commit()
 
-    return redirect(url_for('product_list'))  # Redirige a alguna vista de la lista de productos
+    return redirect(url_for('admin_bp.ban_product'))  # Redirige a alguna vista de la lista de productos
+
+
 

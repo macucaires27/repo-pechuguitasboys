@@ -1,18 +1,21 @@
 {% extends 'layouts/_base.html' %}
 
-
 {% block title %}
-   Desbannear Productos
+   Banear Producto
 {% endblock %}
 
 {% block content %}
-    <form action="/admin/products/unban" method="post">
-        <label for="product_id_unban">ID del Producto a Desbanear:</label>
+    <h1>Banear Un Producto</h1>
+
+    <form action='/admin/products/unban' method="post">
+        <label for="product_id">Selecciona el producto:</label>
         <select id="product_id" name="product_id">
-            {% for product in products %}
-                <option value="{{ product.id }}">{{ product.title }}</option>
+            {% for product in banned_products %}
+                <option value="{{ product.product_id }}">{{ product.product_id }}</option>
             {% endfor %}
         </select>
-        <input type="submit" value="Desbanear Producto">
+        <input type="submit" value="Desbannear producto">
     </form>
+<br>
+    <a class="btn btn-outline-dark btn-xl" href="/admin">&#x3c;&#x3c; Tornar la pàgina d'administració</a>
 {% endblock %}
